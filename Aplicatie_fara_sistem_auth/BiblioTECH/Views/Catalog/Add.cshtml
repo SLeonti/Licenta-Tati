@@ -1,0 +1,106 @@
+﻿@model BiblioTECH.Models.LibraryAssetModel.AddLibraryAssetModel
+@{
+    ViewBag.Title = "Adaugare";
+}
+
+@*@model is the model directive*@
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+}
+
+<div class="container">
+    <div class="header clearfix detailHeading">
+        <h2 class="text-muted">Checkout Library Item</h2>
+    </div>
+    <div class="jumbotron">
+        <form enctype="multipart/form-data" asp-controller="Catalog" asp-action="PlaceAdd" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(a => a.Category)
+                    @Html.DropDownListFor(model => model.Category,
+            new List<SelectListItem> {
+                 new SelectListItem { Value = "1" , Text = "Carte" },
+                 new SelectListItem { Value = "2" , Text = "Video" },
+                 new SelectListItem { Value = "3" , Text = "Revista" },
+                 new SelectListItem { Value = "4" , Text = "Ziar" }
+              },
+            new { @class = "myselect" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(a => a.Location)
+                    <select asp-for="Location" asp-items="@((List<SelectListItem>)ViewData["BranchesNames"])">
+                        <option value="">Pick one</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <input asp-for="Title" class="form-control" placeholder="Titlu">
+                </div>
+                <div class="form-group col-md-4">
+                    <input asp-for="Year" class="form-control" placeholder="An">
+                </div>
+                <div class="form-group col-md-4">
+                    <input asp-for="Cost" class="form-control" placeholder="Cost">
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(a => a.Image)
+                <input asp-for="Image" class="form-control-file" />
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input asp-for="ISBN" class="form-control" placeholder="Numar International">
+                </div>
+                <div class="form-group col-md-6">
+                    <input asp-for="Author" class="form-control" placeholder="Author">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+
+
+                </div>
+                <div class="form-group col-md-4">
+                    <input asp-for="DeweyIndex" class="form-control" placeholder="Index Dewey">
+
+                </div>
+                <div class="form-group col-md-4">
+
+
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+
+
+                </div>
+                <div class="form-group col-md-4">
+                    <input asp-for="Director" class="form-control" placeholder="Director Video">
+
+                </div>
+                <div class="form-group col-md-4">
+
+
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success btn-lg">Add Item</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+

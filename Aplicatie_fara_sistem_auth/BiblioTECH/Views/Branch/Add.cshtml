@@ -1,0 +1,64 @@
+﻿@model BiblioTECH.Models.Branch.AddBranchModel
+@{
+    ViewBag.Title = "Adaugare";
+}
+
+@*@model is the model directive*@
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+}
+
+<div class="container">
+    <div class="header clearfix detailHeading">
+        <h2 class="text-muted">Checkout Library Item</h2>
+    </div>
+    <div class="jumbotron">
+        <form enctype="multipart/form-data" asp-controller="Branch" asp-action="PlaceAdd" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input asp-for="Name" class="form-control" placeholder="Denumire Campus">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <input asp-for="Address" class="form-control" placeholder="Adresa Campusului">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <input asp-for="Telephone" class="form-control" placeholder="Numar de Contact">
+                </div>
+                <div class="form-group col-md-4">
+                </div>
+            </div>
+            <div class="form-row">
+
+                <div class="form-group">
+                    @Html.LabelFor(a => a.Image)
+                    <input asp-for="Image" class="form-control-file" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <textarea asp-for="Description" placeholder="Descriere a Campusului"></textarea>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success btn-lg">Add Item</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+

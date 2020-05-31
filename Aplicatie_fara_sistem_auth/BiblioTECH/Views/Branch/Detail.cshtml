@@ -1,0 +1,86 @@
+﻿
+@using BiblioTECH.Models.Branch
+@model BiblioTECH.Models.Branch.BranchDetailModel
+@{
+    ViewBag.Title = @Model.BranchName + " Branch";
+}
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+}
+
+<div class="container">
+    <div class="header clearfix detailHeading">
+        <h2 class="text-muted">Branch Information</h2>
+    </div>
+    <div class="jumbotron">
+        <div class="row">
+            <img src="@Model.ImageUrl" />
+        </div>
+        <div class="row branchInfo">
+            <div class="col-md-8">
+                <div>
+                    <h2>@Model.BranchName</h2>
+                    <div class="branchContact">
+                        <div id="branchAddress">Address: @Model.Address</div>
+                        <div id="branchTel">Telephone: @Model.Telephone</div>
+                    </div>
+                    <div id="branchDescription">
+                        <p class="caption">@Model.Description</p>
+                    </div>
+
+                    <div id="branchHours">
+                        <ul>
+                            @if (@Model.HoursOpen.Count() != 0)
+                                @foreach (var day in @Model.HoursOpen)
+                                {
+                                    <li>@day</li>
+                                }
+                                else
+                                {
+                                    <li>Luni: 09:00 - 17:00</li>
+                                    <li>Marti: 09:00 - 17:00</li>
+                                    <li>Miercuri: 09:00 - 17:00</li>
+                                    <li>Joi: 09:00 - 17:00</li>
+                                    <li>Vineri: 09:00 - 17:00</li>
+                                    <li>Sambata: 09:00 - 15:00</li>
+                                    <li>Deschis pentru rezervari ONLINE </li>
+                                }
+                        </ul>
+                    </div>
+                    <p><a class="btn btn-lg btn-info" role="button" asp-controller="Branch" asp-action="PlaceDelete" asp-route-id="@Model.Id">Stergeti Campusul</a></p>
+                    <p><a class="btn btn-lg btn-info" role="button" asp-controller="Branch" asp-action="Edit" asp-route-id="@Model.Id">Editati Campusul</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 detailInfo">
+            <table>
+                <tr>
+                    <td class="itemLabel">Date Opened: </td>
+                    <td class="itemValue">@Model.BranchOpenedDate</td>
+                </tr>
+                <tr>
+                    <td class="itemLabel">Number Of Patrons: </td>
+                    <td class="itemValue">@Model.NumberOfPatrons</td>
+                </tr>
+                <tr>
+                    <td class="itemLabel">Number of Assets: </td>
+                    <td class="itemValue">@Model.NumberOfAssets</td>
+                </tr>
+                <tr>
+                    <td class="itemLabel">Value of Assets: </td>
+                    <td class="itemValue">$@Model.TotalAssetValue</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+

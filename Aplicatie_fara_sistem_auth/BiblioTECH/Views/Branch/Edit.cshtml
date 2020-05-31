@@ -1,0 +1,54 @@
+﻿@model BiblioTECH.Models.Branch.EditBranchModel
+@{
+    ViewBag.Title = "Edit Branch";
+}
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+}
+
+<div class="container">
+    <div class="header clearfix detailHeading">
+        <h2 class="text-muted">Edit Library Item</h2>
+    </div>
+
+    <div class="jumbotron">
+        <form enctype="multipart/form-data" asp-controller="Branch" asp-action="PlaceEdit" method="post">
+            <div class="row">
+
+                @Html.HiddenFor(a => a.BranchId)
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <input asp-for="Name" class="form-control" placeholder="@Model.Name">
+                </div>
+                <div class="form-group col-md-4">
+                    <input asp-for="Address" class="form-control" placeholder="@Model.Address">
+                </div>
+                <div class="form-group col-md-4">
+                    <input asp-for="Telephone" class="form-control" placeholder="@Model.Telephone">
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(a => a.Image)
+                <input asp-for="Image" class="form-control-file" />
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <textarea asp-for="Description" placeholder="@Model.Description"></textarea>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success btn-lg">Edit Branch</button>
+            </div>
+        </form>
+    </div>
+</div>
+
