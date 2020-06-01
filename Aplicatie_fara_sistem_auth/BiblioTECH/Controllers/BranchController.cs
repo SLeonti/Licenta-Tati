@@ -1,9 +1,9 @@
 ﻿using BiblioTECH.Models.Branch;
+using BiblioTECH.WebServices.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.IO;
 using System.Linq;
 using TechData.Interfaces;
 using TechData.Models;
@@ -15,11 +15,13 @@ namespace BiblioTECH.Controllers
     {
         private readonly ILibraryBranchService _branchService;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IWebService _webService;
 
-        public BranchController(ILibraryBranchService branchService, IWebHostEnvironment hostingEnvironment)
+        public BranchController(ILibraryBranchService branchService, IWebHostEnvironment hostingEnvironment, IWebService webService)
         {
             _branchService = branchService;
             _hostingEnvironment = hostingEnvironment;
+            _webService = webService;
         }
 
         [HttpGet]
@@ -32,18 +34,6 @@ namespace BiblioTECH.Controllers
         [HttpPost]
         public IActionResult PlaceAdd(AddBranchModel model)
         {
-            //Atasam imaginea
-            string uniqueFileName = null;
-            if (model.Image != null)
-            {
-                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images/Branches");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Image.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
-            }
-            string imageUrl = Path.Combine("/images/Branches/", uniqueFileName);
-
-            //Cream obiectul
 
             var branch = new LibraryBranch
             {
@@ -51,7 +41,7 @@ namespace BiblioTECH.Controllers
                 Address = model.Address,
                 Telephone = model.Telephone,
                 Description = model.Description,
-                ImageUrl = imageUrl,
+                ImageUrl = _webService.CopyBranchPhoto(model.Image),
                 OpenDate = DateTime.Now
             };
             _branchService.Add(branch);
@@ -78,28 +68,11 @@ namespace BiblioTECH.Controllers
         public IActionResult PlaceEdit(EditBranchModel model)
         {
             var editedBranch = _branchService.Get(model.BranchId);
-            string uniqueFileName = null;
-            string imageUrl = null;
-            if (model.Image != null)
-            {
-                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images/Branches");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Image.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
-                imageUrl = Path.Combine("/images/Branches/", uniqueFileName);
-            }
-            else
-            {
-                imageUrl = editedBranch.ImageUrl;
-
-            }
-
-
             editedBranch.Name = model.Name;
             editedBranch.Address = model.Address;
             editedBranch.Telephone = model.Telephone;
             editedBranch.Description = model.Description;
-            editedBranch.ImageUrl = imageUrl;
+            editedBranch.ImageUrl = model.Image == null ? editedBranch.ImageUrl : _webService.CopyBranchPhoto(model.Image);
 
             _branchService.Edit(editedBranch);
 

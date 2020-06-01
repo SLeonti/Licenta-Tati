@@ -6,7 +6,7 @@
 }
 
 @section Scripts{
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 }
@@ -25,6 +25,7 @@
                 <div>
                     <h2>@Model.FirstName @Model.LastName</h2>
                     <div class="patronContact">
+                        <div id="patronEmail">Email: @Model.Email</div>
                         <div id="patronTel">Library Card ID: @Model.LibraryCardId</div>
                         <div id="patronAddress">Address: @Model.Address</div>
                         <div id="patronTel">Telephone: @Model.Telephone</div>

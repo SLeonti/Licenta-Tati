@@ -1,3 +1,5 @@
+using BiblioTECH.WebServices;
+using BiblioTECH.WebServices.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -37,6 +39,8 @@ namespace BiblioTECH
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<IStatusService, StatusService>();
+            services.AddScoped<IWebService, WebService>();
+
 
             //Add the Database Service
             services.AddDbContext<TechContext>(options

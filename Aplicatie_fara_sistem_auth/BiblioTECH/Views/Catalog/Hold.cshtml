@@ -8,7 +8,7 @@
 @*@model is the model directive*@
 
 @section Scripts{
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 }
@@ -32,16 +32,11 @@
             </div>
             @*you could also use tag helpers.*@
             <div class="col-md-9">
-                <p>There are currently @Model.HoldCount holds in the queue for this item.</p>
+                <p>Deocamdata sunt @Model.HoldCount persoane in fata dumneavoastra.</p>
                 @*this is an html helper - it creates an object that implements idisposable*@
                 @using (Html.BeginForm("PlaceHold", "Catalog", FormMethod.Post))
                 {
                     @Html.HiddenFor(a => a.AssetId)
-                    <div>
-                        Please insert a Library Card ID.
-                        @Html.TextBoxFor(a => a.LibraryCardId)
-                        @*write out a text box and set attributes according to info in the model*@
-                    </div>
                     <div>
                         <button type="submit" class="btn btn-info btn-lg">Place Hold</button>
                     </div>

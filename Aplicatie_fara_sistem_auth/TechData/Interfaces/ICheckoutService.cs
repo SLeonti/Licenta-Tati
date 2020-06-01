@@ -9,12 +9,13 @@ namespace TechData.Interfaces
         Checkout Get(int id);
         void Add(Checkout newCheckout);
         IEnumerable<CheckoutHistory> GetCheckoutHistory(int id);
-        void PlaceHold(int assetId, int libraryCardId);
-        void CheckoutItem(int id, int libraryCardId);
+        void PlaceHold(int assetId, string userMail);
+        void CheckoutItem(int id, string userMail);
         void CheckInItem(int id);
         Checkout GetLatestCheckout(int id);
         int GetNumberOfCopies(int id);
         bool IsCheckedOut(int id);
+        bool IsCheckedOutByMe(int id, string myMail);
 
         string GetCurrentHoldPatron(int id);
         string GetCurrentHoldPlaced(int id);

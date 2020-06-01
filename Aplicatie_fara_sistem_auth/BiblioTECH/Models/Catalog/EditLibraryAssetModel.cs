@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel;
+using TechData.Models;
 
 namespace BiblioTECH.Models.Catalog
 {
@@ -18,7 +19,7 @@ namespace BiblioTECH.Models.Catalog
 
         public string AuthorOrDirector { get; set; }
 
-        public string CurrentLocation { get; set; }
+        public LibraryBranch CurrentLocation { get; set; }
         public string Isbn { get; set; }
         public string Dewey { get; set; }
 

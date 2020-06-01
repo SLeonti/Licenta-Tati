@@ -124,8 +124,8 @@ namespace BiblioTECH.Controllers
             return View(model);
         }
 
-        [AcceptVerbs("Get", "Post")]
 
+        [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> IsEmailInUse(string email, string area)
         {
             var user = await userManager.FindByEmailAsync(email);

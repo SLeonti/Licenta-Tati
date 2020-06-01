@@ -21,6 +21,7 @@ namespace BiblioTECH.Models.Catalog
         public LibraryCard CurrentAssociatedLibraryCard { get; set; }
         public IEnumerable<CheckoutHistory> CheckoutHistory { get; set; }
         public IEnumerable<AssetHoldModel> CurrentHolds { get; set; }
+        public bool CheckedOutByMe { get; set; }
     }
 
     public class AssetHoldModel

@@ -34,7 +34,9 @@ namespace BiblioTECH.Controllers
                     FirstName = p.FirstName ?? "No Last Name Provided",
                     LibraryCardId = p.LibraryCard?.Id,
                     OverdueFees = p.LibraryCard?.Fees,
-                    HomeLibrary = p.HomeLibraryBranch?.Name
+                    HomeLibrary = p.HomeLibraryBranch?.Name,
+
+
                 }).ToList();
 
             var model = new PatronIndexModel
@@ -64,7 +66,8 @@ namespace BiblioTECH.Controllers
                 Telephone = string.IsNullOrEmpty(patron.Telephone) ? "No Telephone Number Provided" : patron.Telephone,
                 AssetsCheckedOut = _patronService.GetCheckouts(id).ToList(),
                 CheckoutHistory = _patronService.GetCheckoutHistory(id),
-                Holds = _patronService.GetHolds(id)
+                Holds = _patronService.GetHolds(id),
+                Email = patron.Email ?? "No Email Provided"
             };
 
             return View(model);
@@ -83,6 +86,7 @@ namespace BiblioTECH.Controllers
                 DateOfBirth = user.DateOfBirth,
                 Telephone = user.Telephone,
                 Gender = user.Gender,
+                Email = user.Email
             };
 
             int branchId = int.Parse(user.HomeBranch);

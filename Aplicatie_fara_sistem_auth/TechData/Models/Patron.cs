@@ -17,6 +17,10 @@ namespace TechData.Models
         [StringLength(30, ErrorMessage = "Limit last name to 30 characters.")]
         public string LastName { get; set; }
 
+        [Required]
+        [Display(Name = "Last Name")]
+        public string Email { get; set; }
+
         [Required] public string Address { get; set; }
 
         [Required] public DateTime DateOfBirth { get; set; }

@@ -34,7 +34,7 @@ namespace TechServices
             return _context.Checkouts;
         }
 
-        public void CheckoutItem(int id, int libraryCardId)
+        public void CheckoutItem(int id, string userMail)
         {
             if (IsCheckedOut(id)) return;
 
@@ -49,9 +49,15 @@ namespace TechServices
 
             var now = DateTime.Now;
 
+            //extragem patronul cu email-ul dat
+
+            var patron = _context.Patrons
+                 .Include(card => card.LibraryCard)
+                .First(pa => pa.Email == userMail);
+
             var libraryCard = _context.LibraryCards
                 .Include(c => c.Checkouts)
-                .FirstOrDefault(a => a.Id == libraryCardId);
+                .FirstOrDefault(a => a.Id == patron.LibraryCard.Id);
 
             var checkout = new Checkout
             {
@@ -114,7 +120,7 @@ namespace TechServices
             _context.SaveChanges();
         }
 
-        public void PlaceHold(int assetId, int libraryCardId)
+        public void PlaceHold(int assetId, string userMail)
         {
             var now = DateTime.Now;
 
@@ -122,8 +128,13 @@ namespace TechServices
                 .Include(a => a.Status)
                 .First(a => a.Id == assetId);
 
+            //extragem patron-ul
+            var patron = _context.Patrons
+                .Include(pa => pa.LibraryCard)
+                .First(pa => pa.Email == userMail);
+
             var card = _context.LibraryCards
-                .First(a => a.Id == libraryCardId);
+                .First(a => a.Id == patron.LibraryCard.Id);
 
             _context.Update(asset);
 
@@ -280,15 +291,32 @@ namespace TechServices
             var earliestHold = currentHolds.OrderBy(a => a.HoldPlaced).FirstOrDefault();
             if (earliestHold == null) return;
             var card = earliestHold.LibraryCard;
+            var patron = _context.Patrons
+                .First(pa => pa.LibraryCard == card);
             _context.Remove(earliestHold);
             _context.SaveChanges();
 
-            CheckoutItem(assetId, card.Id);
+            CheckoutItem(assetId, patron.Email);
         }
 
         private DateTime GetDefaultCheckoutTime(DateTime now)
         {
             return now.AddDays(30);
+        }
+
+        public bool IsCheckedOutByMe(int id, string myMail)
+        {
+            if (IsCheckedOut(id))
+            {
+                var patron = _context.Patrons
+                    .Include(pa => pa.LibraryCard)
+                    .First(pa => pa.Email == myMail);
+                if (GetLatestCheckout(id).LibraryCard.Id == patron.LibraryCard.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
