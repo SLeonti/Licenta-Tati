@@ -1,5 +1,6 @@
-﻿
-@using BiblioTECH.Models.Branch
+﻿@using Microsoft.AspNetCore.Identity
+@using TechData.Models
+@inject SignInManager<ApplicationUser> SignInManager
 @model BiblioTECH.Models.Branch.BranchDetailModel
 @{
     ViewBag.Title = @Model.BranchName + " Branch";
@@ -55,8 +56,11 @@
                                 }
                         </ul>
                     </div>
-                    <p><a class="btn btn-lg btn-info" role="button" asp-controller="Branch" asp-action="PlaceDelete" asp-route-id="@Model.Id">Stergeti Campusul</a></p>
-                    <p><a class="btn btn-lg btn-info" role="button" asp-controller="Branch" asp-action="Edit" asp-route-id="@Model.Id">Editati Campusul</a></p>
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        <p><a class="btn btn-lg btn-info" role="button" asp-controller="Branch" asp-action="PlaceDelete" asp-route-id="@Model.Id">Stergeti Campusul</a></p>
+                        <p><a class="btn btn-lg btn-info" role="button" asp-controller="Branch" asp-action="Edit" asp-route-id="@Model.Id">Editati Campusul</a></p>
+                    }
                 </div>
             </div>
         </div>

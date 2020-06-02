@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -41,7 +42,7 @@ namespace BiblioTECH.Models.Account
         [Required]
         [EmailAddress]
         //verificam in real-time daca mail-ul este luat
-        //  [Remote(action: "IsEmailInUse", controller: "Account", "register")]
+        [Remote(action: "IsEmailInUse", controller: "Account", "register")]
         public string Email { get; set; }
 
         [Required]

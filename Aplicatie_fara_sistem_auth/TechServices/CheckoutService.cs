@@ -318,5 +318,42 @@ namespace TechServices
             }
             return false;
         }
+
+        public bool IsHoldedByMe(int id, string myMail)
+        {
+            if (IsCheckedOut(id))
+            {
+                var patron = _context.Patrons
+                    .Include(pa => pa.LibraryCard)
+                    .First(pa => pa.Email == myMail);
+                var holds = GetCurrentHolds(id)
+                    .FirstOrDefault(hol => hol.LibraryCard == patron.LibraryCard);
+
+                if (holds == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
+        public void CancelHold(int assetId, string userMail)
+        {
+            var asset = _context.LibraryAssets
+                 .First(ass => ass.Id == assetId);
+            var patron = _context.Patrons
+                .Include(pa => pa.LibraryCard)
+                .First(pa => pa.Email == userMail);
+            var holds = _context.Holds
+                .First(ass => ass.LibraryCard == patron.LibraryCard && ass.LibraryAsset == asset);
+
+            _context.Remove(holds);
+            _context.SaveChanges();
+        }
     }
 }

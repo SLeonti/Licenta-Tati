@@ -12,7 +12,7 @@ using TechData.Models;
 
 namespace BiblioTECH.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,User")]
     public class CatalogController : Controller
     {
         private readonly ILibraryAssetService _assetsService;
@@ -34,6 +34,8 @@ namespace BiblioTECH.Controllers
 
         }
 
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Add()
         {
@@ -51,6 +53,8 @@ namespace BiblioTECH.Controllers
             return View(model);
         }
 
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult PlaceAdd(AddLibraryAssetModel model)
         {
@@ -96,6 +100,7 @@ namespace BiblioTECH.Controllers
         }
 
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -103,6 +108,8 @@ namespace BiblioTECH.Controllers
             return View();
         }
 
+
+        [Authorize(Roles = "Admin")]
         //[HttpPost] trebe implementate Delete-ul pentru a putea fi post
         public IActionResult PlaceDelete(int id)
         {
@@ -180,6 +187,7 @@ namespace BiblioTECH.Controllers
             if (user != null)
             {
                 model.CheckedOutByMe = _checkoutsService.IsCheckedOutByMe(id, user.Email);
+                model.HoldedByMe = _checkoutsService.IsHoldedByMe(id, user.Email);
             }
 
             return View(model);
@@ -187,7 +195,7 @@ namespace BiblioTECH.Controllers
 
 
 
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -215,6 +223,7 @@ namespace BiblioTECH.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult PlaceEdit(EditLibraryAssetModel model)
         {
@@ -303,12 +312,36 @@ namespace BiblioTECH.Controllers
             var userId = _userManager.GetUserId(HttpContext.User);
             var user = _userManager.Users
                 .First(us => us.Id == userId);
-            _checkoutsService.PlaceHold(assetId,user.Email);
+            _checkoutsService.PlaceHold(assetId, user.Email);
             return RedirectToAction("Detail", new { id = assetId });
         }
 
+        [HttpGet]
+        public IActionResult CancelHold(int id)
+        {
+            var asset = _assetsService.Get(id);
 
+            var model = new CheckoutModel
+            {
+                AssetId = id,
+                ImageUrl = asset.ImageUrl,
+                Title = asset.Title,
+                LibraryCardId = "",
+                HoldCount = _checkoutsService.GetCurrentHolds(id).Count()
+            };
+            return View(model);
+        }
 
+        [HttpPost]
+        public IActionResult PlaceCancelHold(int assetId)
+        {
+            //Extragem user-ul curent
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = _userManager.Users
+                .First(us => us.Id == userId);
+            _checkoutsService.CancelHold(assetId, user.Email);
+            return RedirectToAction("Detail", new { id = assetId });
+        }
 
 
         [HttpGet]
@@ -320,7 +353,7 @@ namespace BiblioTECH.Controllers
 
 
 
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult MarkLost(int id)
         {
@@ -328,6 +361,7 @@ namespace BiblioTECH.Controllers
             return RedirectToAction("Detail", new { id });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult MarkFound(int id)
         {

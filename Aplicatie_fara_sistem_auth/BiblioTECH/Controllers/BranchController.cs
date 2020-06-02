@@ -10,7 +10,7 @@ using TechData.Models;
 
 namespace BiblioTECH.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class BranchController : Controller
     {
         private readonly ILibraryBranchService _branchService;
@@ -23,6 +23,7 @@ namespace BiblioTECH.Controllers
             _hostingEnvironment = hostingEnvironment;
             _webService = webService;
         }
+
 
         [HttpGet]
         public IActionResult Add()
@@ -48,7 +49,6 @@ namespace BiblioTECH.Controllers
             return RedirectToAction("Index");
         }
 
-
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -64,6 +64,7 @@ namespace BiblioTECH.Controllers
             return View(model);
         }
 
+
         [HttpPost]
         public IActionResult PlaceEdit(EditBranchModel model)
         {
@@ -78,7 +79,6 @@ namespace BiblioTECH.Controllers
 
             return RedirectToAction("index");
         }
-
 
 
 

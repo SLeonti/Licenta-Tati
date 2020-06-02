@@ -1,4 +1,6 @@
-﻿@using BiblioTECH.Models.Branch
+﻿@using Microsoft.AspNetCore.Identity
+@using TechData.Models
+@inject SignInManager<ApplicationUser> SignInManager
 @model BiblioTECH.Models.Branch.BranchIndexModel
 @{
     ViewBag.Title = "Branch Index";
@@ -6,7 +8,10 @@
 <h3>Branch Index</h3>
 <div id="branchIndex">
     <div>
-        <a asp-controller="Branch" asp-action="Add">Adaugare</a>
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        {
+            <a asp-controller="Branch" asp-action="Add">Adaugare</a>
+        }
     </div>
     <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp customTable" id="branchIndexTable">
         <thead>

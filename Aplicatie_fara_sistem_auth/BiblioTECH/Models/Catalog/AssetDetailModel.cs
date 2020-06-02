@@ -22,6 +22,7 @@ namespace BiblioTECH.Models.Catalog
         public IEnumerable<CheckoutHistory> CheckoutHistory { get; set; }
         public IEnumerable<AssetHoldModel> CurrentHolds { get; set; }
         public bool CheckedOutByMe { get; set; }
+        public bool HoldedByMe { get; set; }
     }
 
     public class AssetHoldModel

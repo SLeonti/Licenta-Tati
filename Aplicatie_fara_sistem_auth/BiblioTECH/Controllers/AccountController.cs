@@ -1,4 +1,5 @@
 ﻿using BiblioTECH.Models.Account;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -62,6 +63,7 @@ namespace BiblioTECH.Controllers
                 // SignInManager and redirect to index action of HomeController
                 if (result.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(user, "User");
                     await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Add", "Patron");
                 }
@@ -79,7 +81,7 @@ namespace BiblioTECH.Controllers
 
 
 
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -157,6 +159,14 @@ namespace BiblioTECH.Controllers
             return View();
 
 
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

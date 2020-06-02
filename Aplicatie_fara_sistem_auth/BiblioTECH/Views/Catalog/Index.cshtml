@@ -1,13 +1,19 @@
-﻿@model BiblioTECH.Models.Catalog.AssetIndexModel
+﻿@using Microsoft.AspNetCore.Identity
+@using TechData.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@model BiblioTECH.Models.Catalog.AssetIndexModel
 @{
     ViewBag.Title = "Library Catalog Index";
 }
 
 <div id="assets">
     <h3>Library Catalog</h3>
-    <div>
-        <a asp-controller="Catalog" asp-action="Add">Adaugare</a>
-    </div>
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    {
+        <div>
+            <a asp-controller="Catalog" asp-action="Add">Adaugare</a>
+        </div>
+    }
     <div id="assetsTable">
         <table class="table table-condensed" id="catalogIndexTable">
             <thead>

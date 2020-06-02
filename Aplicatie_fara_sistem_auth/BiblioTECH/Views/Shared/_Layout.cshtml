@@ -35,8 +35,12 @@
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
                     <a class="mdl-navigation__link" asp-controller="Home" asp-action="Index">Home</a>
                     <a class="mdl-navigation__link" asp-controller="Catalog" asp-action="Index">Catalog</a>
-                    <a class="mdl-navigation__link" asp-controller="Patron" asp-action="Index">Patrons</a>
                     <a class="mdl-navigation__link" asp-controller="Branch" asp-action="Index">Branches</a>
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        <a class="mdl-navigation__link" asp-controller="Patron" asp-action="Index">Patrons</a>
+                        <a class="mdl-navigation__link" asp-controller="Administration" asp-action="ListRoles">Drepturi User</a>
+                    }
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
 

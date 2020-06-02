@@ -8,7 +8,7 @@ using TechData.Models;
 
 namespace BiblioTECH.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class PatronController : Controller
     {
         private readonly IPatronService _patronService;
@@ -73,6 +73,7 @@ namespace BiblioTECH.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public IActionResult Add()
         {
             var userId = _userManager.GetUserId(HttpContext.User);
@@ -93,7 +94,7 @@ namespace BiblioTECH.Controllers
 
             _patronService.Add(newPatron, branchId);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Catalog");
         }
     }
 }

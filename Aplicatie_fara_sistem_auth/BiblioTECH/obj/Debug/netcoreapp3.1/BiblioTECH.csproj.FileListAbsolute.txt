@@ -588,3 +588,9 @@ D:\Anul 4-IS-semestrul 2\Licenta\Aplicatie_fara_sistem_auth\BiblioTECH\bin\Debug
 D:\Anul 4-IS-semestrul 2\Licenta\Aplicatie_fara_sistem_auth\BiblioTECH\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
 D:\Anul 4-IS-semestrul 2\Licenta\Aplicatie_fara_sistem_auth\BiblioTECH\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
 D:\Anul 4-IS-semestrul 2\Licenta\Aplicatie_fara_sistem_auth\BiblioTECH\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
+D:\Anul 4-IS-semestrul 2\Licenta\Aplicatie_fara_sistem_auth\BiblioTECH\obj\Debug\netcoreapp3.1\Razor\Views\Administration\CreateRole.cshtml.g.cs
+D:\Anul 4-IS-semestrul 2\Licenta\Aplicatie_fara_sistem_auth\BiblioTECH\obj\Debug\netcoreapp3.1\Razor\Views\Administration\ListRoles.cshtml.g.cs
+D:\Anul 4-IS-semestrul 2\Licenta\Aplicatie_fara_sistem_auth\BiblioTECH\obj\Debug\netcoreapp3.1\Razor\Views\Administration\EditRole.cshtml.g.cs
+D:\Anul 4-IS-semestrul 2\Licenta\Aplicatie_fara_sistem_auth\BiblioTECH\obj\Debug\netcoreapp3.1\Razor\Views\Administration\EditUsersInRole.cshtml.g.cs
+D:\Anul 4-IS-semestrul 2\Licenta\Aplicatie_fara_sistem_auth\BiblioTECH\obj\Debug\netcoreapp3.1\Razor\Views\Account\AccessDenied.cshtml.g.cs
+D:\Anul 4-IS-semestrul 2\Licenta\Aplicatie_fara_sistem_auth\BiblioTECH\obj\Debug\netcoreapp3.1\Razor\Views\Catalog\CancelHold.cshtml.g.cs
